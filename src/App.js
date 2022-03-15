@@ -13,7 +13,7 @@ function App() {
       <Home />
       <Header />
       <Banner />
-      <Firebase />
+      {/*<Firebase /> */}
     </div>
   );
 }
