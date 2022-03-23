@@ -1,19 +1,8 @@
 import React from "react";
 import "./Header.css";
 import logo from "./pictures/logo.png";
-import Button from "@mui/material/Button";
-import { auth, provider } from "./firebase";
-
-function handleAuth() {
-  auth
-    .signInWithPopup(provider)
-    .then((result) => {
-      console.log(result);
-    })
-    .catch((error) => {
-      alert(error.message);
-    });
-}
+import { signInWithGoogle } from "./firebase";
+//import Button from "@mui/material/Button";
 
 function Header() {
   return (
@@ -24,9 +13,13 @@ function Header() {
       </div>
 
       <div className="header_right">
-        <Button onClick={handleAuth} variant="outlined">
-          Login
-        </Button>
+        <button onClick={signInWithGoogle} className="Button">
+          {" "}
+          Sign in
+        </button>
+
+        <h2>{localStorage.getItem("name")} </h2>
+        <img src={localStorage.getItem("profilePic")} />
       </div>
     </>
   );

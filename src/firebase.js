@@ -1,7 +1,5 @@
-import firebase from "./firebase";
-import initializeApp from "./firebase";
-import getAnalytics from "./firebase";
-import firebaseApp from "./firebase";
+import { initializeApp } from "firebase/app";
+import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBY5e1dqOnwbZqyjVPdnw6Osnl_lKSX8Bg",
@@ -14,11 +12,22 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-const db = firebaseApp.firestore();
-const auth = firebase.auth();
-const provider = new firebase.auth.GoogleAuthProvider();
-const storage = firebase.storage();
+export const auth = getAuth(app);
 
-export { auth, provider, storage };
-export default db;
+const provider = new GoogleAuthProvider();
+
+export const signInWithGoogle = () => {
+  signInWithPopup(auth, provider)
+    .then((result) => {
+      const name = result.user.displayName;
+      const profilePic = result.user.photoURL;
+
+      localStorage.setItem("name", name);
+      localStorage.setItem("profilePic", profilePic);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+
+  //export const signOut = getAuth();
+};

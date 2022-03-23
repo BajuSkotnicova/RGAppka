@@ -31,6 +31,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  text-transform: inherit;
   width: 5vw;
   margin-left: 90%;
   border: none;
