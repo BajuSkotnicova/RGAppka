@@ -39,8 +39,8 @@ export const signInWithGoogle = () => {
 
 const provider = new FacebookAuthProvider();
 
-export const signInWithFacebook = () => {
-  signInWithPopup(auth, provider)
+const signInWithFacebook = () => {
+  signInWithFacebook(auth, provider)
     .then((result) => {
       console.log(result);
     })
