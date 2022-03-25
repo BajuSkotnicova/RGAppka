@@ -1,7 +1,7 @@
 import React from "react";
 import "./Header.css";
 import logo from "./pictures/logo.png";
-import { signInWithGoogle } from "./firebase";
+import { signInWithGoogle, signInWithFacebook } from "./firebase";
 //import Button from "@mui/material/Button";
 
 function Header() {
@@ -20,6 +20,12 @@ function Header() {
 
         <h2>{localStorage.getItem("name")} </h2>
         <img src={localStorage.getItem("profilePic")} />
+      </div>
+
+      <div className="header_right2">
+        <button onClick={signInWithFacebook} className="ButtonFb">
+          FB
+        </button>
       </div>
     </>
   );
