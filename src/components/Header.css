@@ -1,0 +1,33 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  background-color: white;
+  z-index: 100;
+  width: 100%;
+}
+.header_icon {
+  object-fit: contain;
+  height: 100px;
+  margin-left: 2%;
+  margin-top: 1%;
+}
+
+.header_center {
+  display: flex;
+  align-items: center;
+}
+
+.header > h1 {
+  margin-right: 80%;
+  display: flex;
+  color: #eb7d7f;
+  margin-top: 1%;
+}

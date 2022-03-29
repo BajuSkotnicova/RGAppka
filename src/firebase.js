@@ -4,7 +4,6 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   FacebookAuthProvider,
-  signInWithFacebook,
   signOut,
 } from "firebase/auth";
 
@@ -21,10 +20,10 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 
-const provider = new GoogleAuthProvider();
+const googleProvider = new GoogleAuthProvider();
 
 export const signInWithGoogle = () => {
-  signInWithPopup(auth, provider)
+  signInWithPopup(auth, googleProvider)
     .then((result) => {
       const name = result.user.displayName;
       const profilePic = result.user.photoURL;
@@ -37,10 +36,10 @@ export const signInWithGoogle = () => {
     });
 };
 
-const provider = new FacebookAuthProvider();
+const fbProvider = new FacebookAuthProvider();
 
-const signInWithFacebook = () => {
-  signInWithFacebook(auth, provider)
+export const signInWithFacebook = () => {
+  signInWithFacebook(auth, fbProvider)
     .then((result) => {
       console.log(result);
     })

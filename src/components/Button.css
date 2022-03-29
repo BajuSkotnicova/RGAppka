@@ -1,0 +1,43 @@
+.header_right > Button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-transform: inherit;
+  width: 5vw;
+  margin-left: 90%;
+  border: none;
+  background-color: #eb7d7f;
+  color: white;
+  text-transform: uppercase;
+  font-weight: 600;
+  text-align: center;
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+.header_right > Button:hover {
+  background-color: white;
+  color: #eb7d7f;
+  border: 1px solid black;
+}
+.header_right2 > button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-transform: inherit;
+  width: 5vw;
+  margin-left: 90%;
+  border: none;
+  background-color: #eb7d7f;
+  color: white;
+  text-transform: uppercase;
+  font-weight: 600;
+  text-align: center;
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+
+.header_right2 > button:hover {
+  background-color: white;
+  color: #eb7d7f;
+  border: 1px solid black;
+}

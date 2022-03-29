@@ -1,18 +1,20 @@
 import "./App.css";
-import Home from "./Home";
-import Header from "./Header";
-import Banner from "./Banner";
+import Home from "./pages/Home";
+import Header from "./components/Header";
+import Banner from "./components/Banner";
+import Button from "./components/Button";
 import "./index.css";
-//import Firebase from "./firebase";//
 
 function App() {
   return (
-    <div className="app">
-      <h1></h1>
-      <Home />
-      <Header />
-      <Banner />
-    </div>
+    <>
+      <div className="app">
+        <Home />
+        <Header />
+        <Banner />
+        <Button />
+      </div>
+    </>
   );
 }
 
