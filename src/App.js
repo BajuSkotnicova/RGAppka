@@ -3,6 +3,7 @@ import Home from "./pages/Home";
 import Header from "./components/Header";
 import Banner from "./components/Banner";
 import Button from "./components/Button";
+import Cards from "./components/Cards";
 import "./index.css";
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
         <Header />
         <Banner />
         <Button />
+        <Cards />
       </div>
     </>
   );

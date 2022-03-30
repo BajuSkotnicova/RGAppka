@@ -1,6 +1,6 @@
 import React from "react";
 import "./Header.css";
-import logo from "./src./pictures/logo.png";
+import logo from "../pictures/logo.png";
 
 function Header() {
   return (
@@ -9,8 +9,6 @@ function Header() {
         <img className="header_icon" src={logo} alt="" />
         <h1>Beskydy trochu jinak</h1>
       </div>
-
-      <div className="menu">ul</div>
     </>
   );
 }
