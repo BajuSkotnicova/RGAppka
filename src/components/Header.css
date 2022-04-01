@@ -18,7 +18,28 @@
 .header > h1 {
   margin-right: 90%;
   display: flex;
-  color: #eb8836f3;
+  color: #f39a52f3;
   margin-top: 1%;
   font-size: 20px;
+}
+
+.button {
+  position: sticky;
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: space-between;
+  width: 4vw;
+  margin-left: 70%;
+  margin-bottom: 10%;
+  border: none;
+  background-color: #f39a52f3;
+  color: #efe7cf;
+  font-family: "Roboto Slab";
+  text-transform: uppercase;
+  font-weight: 600;
+  text-align: center;
+  padding: 5px 10px;
+  border-radius: 4px;
+  top: 0;
 }

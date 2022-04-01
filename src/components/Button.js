@@ -1,22 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Button.css";
-import { signInWithGoogle, signInWithFacebook } from "../firebase";
+import Modal from "../components/Modal";
 
 function Button() {
+  const [modalOpen, setModalOpen] = useState(false);
   return (
     <>
       <div className="Signin">
         <button
-          className="Button"
+          className="OpenButton"
           variant="outlined"
-          onClick={(signInWithGoogle, signInWithFacebook)}
+          onClick={() => {
+            setModalOpen(true);
+          }}
         >
-          {" "}
           Přihlášení
         </button>
-
-        <h2>{localStorage.getItem("name")} </h2>
-        <img src={localStorage.getItem("profilePic")} alt="" />
+        {modalOpen && <Modal setOpenModal={setModalOpen} />}
       </div>
     </>
   );
