@@ -3,8 +3,12 @@ import "../components/Footer.css";
 
 function footer() {
   return (
-    <div className="footer">
-      <p>© 2022 Barbora Skotnicová</p>
+    <div className="footer-container">
+      <ul>
+        <li>made by Barbora Skotnicová, 2022</li>
+
+        <li>Fotografie: Šťepán Glombek</li>
+      </ul>
     </div>
   );
 }

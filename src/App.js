@@ -1,21 +1,26 @@
 import "./App.css";
-import Home from "./pages/Home";
-import Header from "./components/Header";
-import Button from "./components/Button";
+import Navbar from "./components/Navbar";
 import Banner from "./components/Banner";
+import Home from "./pages/Home";
+import ImageSlider from "./components/ImageSlider";
+import { SliderData } from "./components/SliderData";
 import Footer from "./components/Footer";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./index.css";
 
 function App() {
   return (
     <>
-      <div className="app">
-        <Header />
-        <Button />
+      <Router>
+        <Navbar />
         <Banner />
         <Home />
+        <ImageSlider slides={SliderData} />
         <Footer />
-      </div>
+        <Routes>
+          <Route path="/" exact />
+        </Routes>
+      </Router>
     </>
   );
 }
