@@ -1,27 +1,25 @@
+import React from "react";
 import "./App.css";
 import Navbar from "./components/Navbar";
-import Banner from "./components/Banner";
 import Home from "./pages/Home";
-import ImageSlider from "./components/ImageSlider";
-import { SliderData } from "./components/SliderData";
+import Trails from "./pages/Trails";
 import Footer from "./components/Footer";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./index.css";
 
 function App() {
   return (
-    <>
+    <div className="App">
       <Router>
         <Navbar />
-        <Banner />
-        <Home />
-        <ImageSlider slides={SliderData} />
-        <Footer />
         <Routes>
-          <Route path="/" exact />
+          <Route path="/" element={<Home />} />
+          <Route path="/Trails" element={<Trails />} />
         </Routes>
+
+        <Footer />
       </Router>
-    </>
+    </div>
   );
 }
 

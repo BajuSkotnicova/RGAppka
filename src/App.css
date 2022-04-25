@@ -5,8 +5,7 @@
   font-family: "PT Sans", sans-serif;
 }
 .home,
-.services,
-.products,
+.trails,
 .sign-up {
   display: flex;
   height: 90vh;

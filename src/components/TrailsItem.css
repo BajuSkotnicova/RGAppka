@@ -1,0 +1,73 @@
+.trailsItem {
+  display: flex;
+  position: relative;
+  margin: 20px;
+  padding: 20px;
+  border-bottom: 1px solid lightgray;
+  cursor: pointer;
+}
+
+.trailsItem:hover {
+  opacity: 0.8;
+}
+
+.trailsItem > img {
+  height: 200px;
+  width: 350px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.trailsItem .trailsItem__info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-left: 20px;
+}
+
+.trailsItem__infoTop {
+  width: 40vw;
+}
+
+.trailsItem__infoTop > h3 {
+  font-weight: 300;
+  margin-top: 10px;
+}
+
+.strailsItem__infoTop > p {
+  margin-top: 10px;
+  font-size: 13px;
+  color: gray;
+}
+
+.trailsItem__infoBottom {
+  display: flex;
+  justify-content: space-between;
+}
+
+.strailsItem__difficulty {
+  color: red;
+}
+
+.strailsItem__stars {
+  display: flex;
+  align-items: center;
+}
+
+@media only screen and (min-width: 1200px) {
+  .content__blog__container {
+    width: 84%;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .cards__items {
+    display: flex;
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  .cards__item {
+    margin-bottom: 2rem;
+  }
+}
