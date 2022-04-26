@@ -14,7 +14,7 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/Trails" element={<Trails />} />
+          <Route path="/trails" element={<Trails />} />
         </Routes>
 
         <Footer />

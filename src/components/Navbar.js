@@ -46,7 +46,7 @@ function Navbar() {
               </Link>
             </li>
             <li className="nav-item">
-              <Link to="/trasy" className="nav-links" onClick={closeMobilMenu}>
+              <Link to="/trails" className="nav-links" onClick={closeMobilMenu}>
                 Trasy
               </Link>
             </li>

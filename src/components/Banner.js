@@ -10,7 +10,7 @@ function Banner() {
         <h1>Beskydský Mont Blanc</h1>
       </div>
       <div className="banner-btns">
-        <Link to="/trasy">
+        <Link to="/trails">
           <Button
             className="btns"
             buttonStyle="btn--outline"
