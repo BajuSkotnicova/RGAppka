@@ -8,6 +8,7 @@ import GradeIcon from "@mui/icons-material/Grade";
 import "../components/TrailsItem.css";
 
 function TrailsItem({
+  img,
   lenght,
   altitude,
   difficulty,
@@ -18,24 +19,27 @@ function TrailsItem({
   return (
     <>
       <div className="trailsItem">
-        <SwapCallsIcon className="trailsItem__length" />
-        <p> {lenght} </p>
-        <NorthEastIcon className="trailsItem__altitude" />
-        <p> {altitude} </p>
-        <SpeedIcon className="trailsItem__difficulty" />
-        <p> {difficulty} </p>
+        <img src={img} alt="" />
 
+        <div className="trailsItem_icons">
+          <SwapCallsIcon className="trailsItem__length" />
+          <p> {lenght} km </p>
+          <NorthEastIcon className="trailsItem__altitude" />
+          <p> {altitude} m </p>
+          <SpeedIcon className="trailsItem__difficulty" />
+          <p> {difficulty} </p>
+        </div>
         <div className="trailsItem__info">
-          <div className="strailsItem__infoTop">
+          <div className="trailsItem__infoTop">
             <h2>{title}</h2>
-            <p>____</p>
+
             <p>{description}</p>
             <h3> {location} </h3>
           </div>
 
-          <div className="strailsItem__infoBottom">
+          <div className="trailsItem__infoBottom">
             <div className="trailsItem__share">
-              <ShareIcon className="strailsItem__share" />
+              <ShareIcon className="trailsItem__share" />
             </div>
             <div className="trailsItem__save">
               <GradeIcon />

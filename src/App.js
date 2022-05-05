@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import Trails from "./pages/Trails";
 import Footer from "./components/Footer";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
 import "./index.css";
 
 function App() {

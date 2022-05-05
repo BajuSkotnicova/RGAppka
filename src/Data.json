@@ -1,0 +1,38 @@
+[
+  {
+    "vrchol": "Ondřejník",
+    "místo": "Frýdland nad Ostravicí",
+    "link": "/trasa1",
+    "id": 1
+  },
+  {
+    "vrchol": "Lysá hora",
+    "místo": "Ostravice",
+    "link": "/trasa2",
+    "id": 2
+  },
+  {
+    "vrchol": "Smrk",
+    "místo": "Ostravice",
+    "link": "/trasa3",
+    "id": 3
+  },
+  {
+    "vrchol": "Ropice",
+    "místo": "Morávka",
+    "link": "/trasa4",
+    "id": 4
+  },
+  {
+    "vrchol": "Javorový",
+    "místo": "Třinec",
+    "link": "/trasa5",
+    "id": 5
+  },
+  {
+    "vrchol": "Kotař",
+    "místo": "Morávka",
+    "link": "/trasa6",
+    "id": 6
+  }
+]
