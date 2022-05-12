@@ -4,7 +4,6 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   FacebookAuthProvider,
-  signOut,
 } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
@@ -50,7 +49,3 @@ export const signInWithFacebook = () => {
       console.log(error);
     });
 };
-
-signOut(auth)
-  .then(() => {})
-  .catch((error) => {});

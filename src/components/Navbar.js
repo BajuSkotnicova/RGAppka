@@ -4,12 +4,24 @@ import { GiMountains } from "react-icons/gi";
 import { FaBars, FaTimes } from "react-icons/fa";
 import "./Navbar.css";
 import { Button } from "./Button";
+import { signOut } from "firebase/auth";
+import { auth } from "../firebase";
 import Modal from "../components/Modal";
 
 function Navbar() {
   const [click, setClick] = useState(false);
   const [button, setButton] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
+
+  const [isAuth, setIsAuth] = useState(localStorage.getItem("isAuth"));
+
+  const signUserOut = () => {
+    signOut(auth).then(() => {
+      localStorage.clear();
+      setIsAuth(false);
+      window.location.pathname = "/";
+    });
+  };
 
   const handleClick = () => setClick(!click);
   const closeMobilMenu = () => setClick(false);
@@ -51,13 +63,19 @@ function Navbar() {
               </Link>
             </li>
             <li className="nav-item">
-              <Link
-                to="/prihlaseni"
-                className="nav-links-mobile"
-                onClick={closeMobilMenu}
-              >
-                Přihlášení
-              </Link>
+              {!isAuth ? (
+                <Link
+                  to="/"
+                  className="nav-links-mobile"
+                  onClick={closeMobilMenu}
+                >
+                  Přihlášení
+                </Link>
+              ) : (
+                <Button buttonStyle="btn--outline" onclick={signUserOut}>
+                  Odhlásit se
+                </Button>
+              )}
             </li>
           </ul>
           {button && (

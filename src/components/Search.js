@@ -45,11 +45,11 @@ function Search({ placeholder, data }) {
       </div>
       {filteredData.length != 0 && (
         <div className="dataResult">
-          {filteredData.slice(0, 15).map((value) => {
+          {filteredData.slice(0, 5).map((value) => {
             return (
               <a
                 className="dataItem"
-                key="id"
+                key={value.id}
                 href={value.link}
                 target="_blank"
                 rel="noreferrer"

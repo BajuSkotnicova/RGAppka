@@ -5,7 +5,11 @@ import NorthEastIcon from "@mui/icons-material/NorthEast";
 import SpeedIcon from "@mui/icons-material/Speed";
 import ShareIcon from "@mui/icons-material/Share";
 import GradeIcon from "@mui/icons-material/Grade";
+import StarBorderIcon from "@mui/icons-material/StarBorder";
 import "../components/TrailsItem.css";
+/*import { arrayUnion, doc, updateDoc } from "firebase/firestore";
+import { db } from "../firebase";
+{ useState } from "react";*/
 
 function TrailsItem({
   img,
@@ -16,8 +20,26 @@ function TrailsItem({
   description,
   location,
 }) {
+  /*const [like, setLike] = useState(false);
+  const [saved, setSaved] = useState(false);
+  const trailID = doc(db, "users", `${user?.email}`);
+
+  const saveTrail = async () => {
+    if (user?.email) {
+      setLike(!like);
+      setSaved(true);
+      await updateDoc(trailID, {
+        savedTrails: arrayUnion({
+          id: item.id,
+          vrchol: item.vrchol,
+        }),
+      });
+    } else {
+      alert("Prosím přihlaš se aby sis mohl uložit trasu");
+    }
+  };*/
   return (
-    <>
+    <div className="trailsItem__container">
       <div className="trailsItem">
         <img src={img} alt="" />
 
@@ -42,12 +64,12 @@ function TrailsItem({
               <ShareIcon className="trailsItem__share" />
             </div>
             <div className="trailsItem__save">
-              <GradeIcon />
+              <StarBorderIcon /> <GradeIcon />
             </div>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

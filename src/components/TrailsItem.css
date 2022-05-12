@@ -10,10 +10,12 @@
 .trailsItem_icons > p {
   font-size: 13px;
   padding-left: 15px;
+  padding-top: 15px;
 }
 
 .trailsItem__length {
   padding-left: 1%;
+
   margin-left: 30%;
   color: #eeaa6f;
 }
@@ -34,13 +36,15 @@
   border-radius: 10px;
   overflow: hidden;
 }
+.trailsItem:hover > img {
+  opacity: 0.8;
+}
 
 .trailsItem__info {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   padding-left: 80px;
-  line-height: 3rem;
 }
 .trailsItem__length {
   display: flex;
@@ -84,6 +88,9 @@
 }
 
 @media only screen and (min-width: 1200px) {
+}
+.trailsItem__container {
+  display: flex;
 }
 
 @media only screen and (min-width: 1024px) {
