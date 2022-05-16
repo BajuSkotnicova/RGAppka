@@ -4,7 +4,6 @@
   margin: 20px;
   padding: 20px;
   border-bottom: 1px solid lightgray;
-  cursor: pointer;
 }
 
 .trailsItem_icons > p {
@@ -35,6 +34,7 @@
 .trailsItem > img {
   border-radius: 10px;
   overflow: hidden;
+  cursor: pointer;
 }
 .trailsItem:hover > img {
   opacity: 0.8;

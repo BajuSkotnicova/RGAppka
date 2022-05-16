@@ -1,26 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useAuthState } from "react-firebase-hooks/auth";
+import HikingIcon from "@mui/icons-material/Hiking";
 import { GiMountains } from "react-icons/gi";
 import { FaBars, FaTimes } from "react-icons/fa";
-import "./Navbar.css";
 import { Button } from "./Button";
-import { signOut } from "firebase/auth";
-import { auth } from "../firebase";
+import { auth, logout } from "../firebase";
 import Modal from "../components/Modal";
+import "./Navbar.css";
 
 function Navbar() {
   const [click, setClick] = useState(false);
   const [button, setButton] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
-
-  const [isAuth, setIsAuth] = useState(localStorage.getItem("isAuth"));
+  const [user, loading, error] = useAuthState(auth);
 
   const signUserOut = () => {
-    signOut(auth).then(() => {
-      localStorage.clear();
-      setIsAuth(false);
-      window.location.pathname = "/";
-    });
+    logout();
   };
 
   const handleClick = () => setClick(!click);
@@ -63,7 +59,7 @@ function Navbar() {
               </Link>
             </li>
             <li className="nav-item">
-              {!isAuth ? (
+              {!user ? (
                 <Link
                   to="/"
                   className="nav-links-mobile"
@@ -72,13 +68,22 @@ function Navbar() {
                   Přihlášení
                 </Link>
               ) : (
-                <Button buttonStyle="btn--outline" onclick={signUserOut}>
+                <Button buttonStyle="btn--outline" onClick={signUserOut}>
                   Odhlásit se
                 </Button>
               )}
             </li>
+            <li className="nav-item">
+              <Link
+                to="/savedTrails"
+                className="nav-links"
+                onClick={closeMobilMenu}
+              >
+                {!user} <HikingIcon /> Moje Trasy
+              </Link>
+            </li>
           </ul>
-          {button && (
+          {button && !user && (
             <Button
               buttonStyle="btn--outline"
               onClick={() => {

@@ -53,6 +53,9 @@
 .nav-item {
   height: 100px;
 }
+.nav-item > img {
+  color: white;
+}
 
 .nav-links {
   color: #fff;

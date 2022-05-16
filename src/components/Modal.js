@@ -1,15 +1,22 @@
 import React from "react";
-import { signInWithGoogle, signInWithFacebook } from "../firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { signInWithGoogle, signInWithFacebook, auth } from "../firebase";
 import { GoogleLoginButton } from "react-social-login-buttons";
 import { FacebookLoginButton } from "react-social-login-buttons";
 import "./Modal.css";
 
 function Modal({ setOpenModal }) {
+  const [user, loading, error] = useAuthState(auth);
+
+  const modalCloser = (func) => {
+    if (typeof func === "function") func();
+    setOpenModal(false);
+  };
   return (
     <div className="modalBackground">
       <div className="modalContainer">
         <div className="titleCloseBtn">
-          <button onClick={() => setOpenModal(false)}>X</button>
+          <button onClick={modalCloser}>X</button>
         </div>
         <div className="title">
           <h1>Chceš se přihlásit?</h1>
@@ -19,11 +26,7 @@ function Modal({ setOpenModal }) {
         </div>
         <div className="footerModal">
           <FacebookLoginButton onClick={signInWithFacebook} />
-          <GoogleLoginButton onClick={signInWithGoogle} />
-          <div className="userInfo">
-            <h2>{localStorage.getItem("name")} </h2>
-            <img src={localStorage.getItem("profilePic")} alt="" />
-          </div>
+          <GoogleLoginButton onClick={() => modalCloser(signInWithGoogle)} />
         </div>
       </div>
     </div>
