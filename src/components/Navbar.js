@@ -1,22 +1,28 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { useAuthState } from "react-firebase-hooks/auth";
+import { Link, useNavigate } from "react-router-dom";
+
 import HikingIcon from "@mui/icons-material/Hiking";
 import { GiMountains } from "react-icons/gi";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { Button } from "./Button";
-import { auth, logout } from "../firebase";
+import { UserAuth } from "../firebase";
 import Modal from "../components/Modal";
 import "./Navbar.css";
 
-function Navbar() {
+const Navbar = () => {
   const [click, setClick] = useState(false);
   const [button, setButton] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
-  const [user, loading, error] = useAuthState(auth);
+  const { user, logOut } = UserAuth();
+  const navigate = useNavigate();
 
-  const signUserOut = () => {
-    logout();
+  const handleLogout = async () => {
+    try {
+      await logOut();
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleClick = () => setClick(!click);
@@ -68,19 +74,25 @@ function Navbar() {
                   Přihlášení
                 </Link>
               ) : (
-                <Button buttonStyle="btn--outline" onClick={signUserOut}>
+                <Button buttonStyle="btn--outline" onClick={{ handleLogout }}>
                   Odhlásit se
                 </Button>
               )}
             </li>
             <li className="nav-item">
-              <Link
-                to="/savedTrails"
-                className="nav-links"
-                onClick={closeMobilMenu}
-              >
-                {!user} <HikingIcon /> Moje Trasy
-              </Link>
+              {user ? (
+                <Link
+                  to="/savedTrails"
+                  className="nav-links"
+                  onClick={closeMobilMenu}
+                >
+                  <HikingIcon /> Moje Trasy
+                </Link>
+              ) : (
+                <Button buttonStyle="btn--outline" onClick={{ closeMobilMenu }}>
+                  Registrace
+                </Button>
+              )}
             </li>
           </ul>
           {button && !user && (
@@ -98,6 +110,6 @@ function Navbar() {
       </nav>
     </>
   );
-}
+};
 
 export default Navbar;

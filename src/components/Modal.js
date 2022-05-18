@@ -1,12 +1,37 @@
-import React from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { signInWithGoogle, signInWithFacebook, auth } from "../firebase";
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
+import { UserAuth } from "../firebase";
 import { GoogleLoginButton } from "react-social-login-buttons";
 import { FacebookLoginButton } from "react-social-login-buttons";
 import "./Modal.css";
 
 function Modal({ setOpenModal }) {
-  const [user, loading, error] = useAuthState(auth);
+  /* const [user, loading, error] = useAuthState(auth);*/
+
+  const { signInWithGoogle, signInWithFacebook, user } = UserAuth();
+  const navigate = useNavigate();
+
+  const handleSignInWithGoogle = async () => {
+    try {
+      await signInWithGoogle();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const handleSignInWithFacebook = async () => {
+    try {
+      await signInWithFacebook();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    if (user != null) {
+      navigate("/account");
+    }
+  }, [user]);
 
   const modalCloser = (func) => {
     if (typeof func === "function") func();
@@ -25,8 +50,10 @@ function Modal({ setOpenModal }) {
           <p>Přihlaš se via Facebook nebo Google.</p>
         </div>
         <div className="footerModal">
-          <FacebookLoginButton onClick={signInWithFacebook} />
-          <GoogleLoginButton onClick={() => modalCloser(signInWithGoogle)} />
+          <FacebookLoginButton onClick={handleSignInWithFacebook} />
+          <GoogleLoginButton
+            onClick={() => modalCloser(handleSignInWithGoogle)}
+          />
         </div>
       </div>
     </div>

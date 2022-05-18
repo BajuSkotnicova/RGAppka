@@ -1,5 +1,6 @@
-import React from "react";
-
+import React, { useState } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { arrayUnion, doc, updateDoc } from "firebase/firestore";
 import SwapCallsIcon from "@mui/icons-material/SwapCalls";
 import NorthEastIcon from "@mui/icons-material/NorthEast";
 import SpeedIcon from "@mui/icons-material/Speed";
@@ -7,9 +8,7 @@ import ShareIcon from "@mui/icons-material/Share";
 import GradeIcon from "@mui/icons-material/Grade";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import "../components/TrailsItem.css";
-/*import { arrayUnion, doc, updateDoc } from "firebase/firestore";
 import { db } from "../firebase";
-{ useState } from "react";*/
 
 function TrailsItem({
   img,
@@ -20,9 +19,10 @@ function TrailsItem({
   description,
   location,
 }) {
-  /*const [like, setLike] = useState(false);
+  const [like, setLike] = useState(false);
   const [saved, setSaved] = useState(false);
   const trailID = doc(db, "users", `${user?.email}`);
+  const { user } = useAuthState();
 
   const saveTrail = async () => {
     if (user?.email) {
@@ -37,7 +37,7 @@ function TrailsItem({
     } else {
       alert("Prosím přihlaš se aby sis mohl uložit trasu");
     }
-  };*/
+  };
   return (
     <div className="trailsItem__container">
       <div className="trailsItem">
@@ -63,8 +63,8 @@ function TrailsItem({
             <div className="trailsItem__share">
               <ShareIcon className="trailsItem__share" />
             </div>
-            <div className="trailsItem__save">
-              <StarBorderIcon /> <GradeIcon />
+            <div className="trailsItem__save" onClick={saveTrail}>
+              {like ? <StarBorderIcon /> : <GradeIcon />}
             </div>
           </div>
         </div>
