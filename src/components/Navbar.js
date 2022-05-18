@@ -74,7 +74,7 @@ const Navbar = () => {
                   Přihlášení
                 </Link>
               ) : (
-                <Button buttonStyle="btn--outline" onClick={{ handleLogout }}>
+                <Button buttonStyle="btn--outline" onClick={handleLogout}>
                   Odhlásit se
                 </Button>
               )}
