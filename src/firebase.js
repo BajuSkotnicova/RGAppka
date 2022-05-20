@@ -4,6 +4,7 @@ import {
   getAuth,
   GoogleAuthProvider,
   signInWithPopup,
+  signInWithGoogle,
   FacebookAuthProvider,
   signInWithEmailAndPassword,
   onAuthStateChanged,
@@ -34,20 +35,26 @@ const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
 export const auth = getAuth(app);
 
-const AuthContext = createContext();
-export function AuthContextProvider({ children }) {
-  const [user, setUser] = useState({});
-  function signUp(email, password) {
+/*function signUp(email, password) {
     createUserWithEmailAndPassword(auth, email, password);
     setDoc(doc(db, "users", email), {
       savedTrails: [],
     });
-  }
+  }*/
+const AuthContext = createContext();
+export function AuthContextProvider({ children }) {
+  const [user, setUser] = useState({});
 
-  const signInWithGoogle = () => {
+  function signInWithGoogle() {
     const googleProvider = new GoogleAuthProvider();
+
     signInWithPopup(auth, googleProvider);
-    /*.then((result) => {
+    const email = error.customData.email;
+    setDoc(doc(db, "users", email), {
+      savedTrails: [],
+    });
+  }
+  /*.then((result) => {
         /*const name = result.user.displayName;
         const profilePic = result.user.photoURL;
         console.log(result, "result");
@@ -58,12 +65,11 @@ export function AuthContextProvider({ children }) {
       .catch((error) => {
         console.log(error);
       });*/
-  };
 
-  const signInWithFacebook = () => {
+  function signInWithFacebook() {
     const fbProvider = new FacebookAuthProvider();
-    signInWithFacebook(auth, fbProvider);
-  };
+    signInWithPopup(auth, fbProvider);
+  }
   /*
       .then((result) => {
         console.log(result);
@@ -72,9 +78,10 @@ export function AuthContextProvider({ children }) {
         console.log(error);
       });
   };*/
-  function logIn(email, password) {
+
+  /*function logIn(email, password) {
     return signInWithEmailAndPassword(auth, email, password);
-  }
+  }*/
 
   function logOut() {
     return signOut(auth);
@@ -87,13 +94,11 @@ export function AuthContextProvider({ children }) {
     return () => {
       unsubscribe();
     };
-  }, []);
+  });
 
   return (
     <AuthContext.Provider
       value={{
-        signUp,
-        logIn,
         logOut,
         user,
         signInWithFacebook,
@@ -105,6 +110,6 @@ export function AuthContextProvider({ children }) {
   );
 }
 
-export const UserAuth = () => {
+export function UserAuth() {
   return useContext(AuthContext);
-};
+}

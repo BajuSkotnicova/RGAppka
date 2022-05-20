@@ -1,21 +1,23 @@
 import React, { useState, useEffect } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
+import { AiOutlineClose } from "react-icons/ai";
+/*import { useAuthState } from "react-firebase-hooks/auth";*/
+import { UserAuth } from "../firebase";
 import { db } from "../firebase";
 import { updateDoc, doc, onSnapshot } from "firebase/firestore";
 
 const SavedTrails = () => {
   const [trails, setTrails] = useState([]);
-  const { user } = useAuthState();
+  const { user } = UserAuth();
 
   useEffect(() => {
     onSnapshot(doc(db, "users", `${user?.email}`), (doc) => {
       setTrails(doc.data()?.SavedTrails);
     });
-  }, [user?.email]);
-  const trailRef = doc(db, "users", `${user?.email}`);
+  }, [user?.user]);
+  const trailRef = doc(db, "users", `${user?.user}`);
   const deleteTrail = async (passedID) => {
     try {
-      const result = trails.filter((vrchol) => vrchol.id !== passedID);
+      const result = trails.filter((item) => item.id !== passedID);
       await updateDoc(trailRef, {
         SavedTrails: result,
       });
@@ -24,7 +26,14 @@ const SavedTrails = () => {
     }
   };
 
-  return <div></div>;
+  return (
+    <div>
+      <p onClick={() => deleteTrail(item.id)}>
+        {" "}
+        <AiOutlineClose />
+      </p>
+    </div>
+  );
 };
 
 export default SavedTrails;

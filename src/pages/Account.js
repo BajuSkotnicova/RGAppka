@@ -18,8 +18,8 @@ const Account = () => {
     <div>
       <div>
         <h1>Moje trasy</h1>
-        <p>Ahoj, {user?.displayName} </p>
-        <p> {user?.displayPhotoUrl}</p>
+        <p> {user?.displayName} </p>
+        <p> {user?.photoURL}</p>
       </div>
       <SavedTrails />
       <Button buttonStyle="btn--outline" onClick={{ handleSignOut }}>

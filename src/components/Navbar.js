@@ -65,22 +65,17 @@ const Navbar = () => {
               </Link>
             </li>
             <li className="nav-item">
-              {!user ? (
-                <Link
-                  to="/"
-                  className="nav-links-mobile"
-                  onClick={closeMobilMenu}
-                >
-                  Přihlášení
-                </Link>
-              ) : (
-                <Button buttonStyle="btn--outline" onClick={handleLogout}>
-                  Odhlásit se
-                </Button>
-              )}
+              <Link
+                to="/"
+                className="nav-links-mobile"
+                onClick={closeMobilMenu}
+              >
+                Přihlášení
+              </Link>
             </li>
+
             <li className="nav-item">
-              {user ? (
+              {user && (
                 <Link
                   to="/savedTrails"
                   className="nav-links"
@@ -88,10 +83,6 @@ const Navbar = () => {
                 >
                   <HikingIcon /> Moje Trasy
                 </Link>
-              ) : (
-                <Button buttonStyle="btn--outline" onClick={{ closeMobilMenu }}>
-                  Registrace
-                </Button>
               )}
             </li>
           </ul>
@@ -106,6 +97,13 @@ const Navbar = () => {
             </Button>
           )}
           {modalOpen && <Modal setOpenModal={setModalOpen} />}
+          {user && (
+            <Button buttonStyle="btn--outline" onClick={handleLogout}>
+              Odhlášení
+            </Button>
+          )}
+          <p className="userInfo"> {user?.displayName}</p>
+          {user && <img className="profilePic" src={user?.photoURL} />}
         </div>
       </nav>
     </>

@@ -83,6 +83,18 @@
   display: none;
   color: #fff;
 }
+p.userInfo {
+  color: white;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  padding-left: 3rem;
+}
+img.profilePic {
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+}
 
 @media screen and (max-width: 960px) {
   .NavbarItems {
