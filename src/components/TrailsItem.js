@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { UserAuth } from "../firebase";
+import { useDownloadURL } from "react-firebase-hooks/storage";
+import { UserAuth, storageRef } from "../firebase";
 import { arrayUnion, doc, updateDoc } from "firebase/firestore";
 import SwapCallsIcon from "@mui/icons-material/SwapCalls";
 import NorthEastIcon from "@mui/icons-material/NorthEast";
@@ -15,8 +16,16 @@ import {
 } from "react-share";
 import "../components/TrailsItem.css";
 import { db } from "../firebase";
+import { imageListClasses } from "@mui/material";
+
+const Image = ({ imageURL, error, loading }) => {
+  if (loading) return <div>...</div>;
+  if (error) return <div>chyba</div>;
+  return <img src={imageURL} />;
+};
+
 function TrailsItem({
-  img,
+  imageURL,
   lenght,
   altitude,
   difficulty,
@@ -46,12 +55,16 @@ function TrailsItem({
         alert("Prosím přihlaš se aby sis mohl uložit trasu");
       }
     };*/
+  console.log("location", location);
+  const [value, loading, error] = useDownloadURL(storageRef(imageURL));
+  console.log(" loading, error: ", loading, error);
+  console.log("value: ", value);
 
   return (
     <>
       <div className="trailsItem__container">
         <div className="trailsItem">
-          <img src={img} alt="" />
+          <Image imageURL={value} loading={loading} error={error} />
 
           <div className="trailsItem_icons">
             <SwapCallsIcon className="trailsItem__length" />
@@ -66,7 +79,6 @@ function TrailsItem({
               <h2>{title}</h2>
 
               <p>{description}</p>
-              <h3> {location} </h3>
             </div>
 
             <div className="trailsItem__infoBottom">

@@ -1,4 +1,5 @@
 import { initializeApp } from "firebase/app";
+import { getStorage, ref } from "firebase/storage";
 import { useContext, createContext, useEffect, useState } from "react";
 import {
   getAuth,
@@ -30,11 +31,13 @@ const firebaseConfig = {
   appId: "1:678707764310:web:f56f324ba76ab0072deff7",
 };
 
-const app = initializeApp(firebaseConfig);
+export const app = initializeApp(firebaseConfig);
 
 export const db = getFirestore(app);
+const storage = getStorage(app);
+export const storageRef = (path) => ref(storage, path);
 export const auth = getAuth(app);
-
+const googleProvider = new GoogleAuthProvider();
 /*function signUp(email, password) {
     createUserWithEmailAndPassword(auth, email, password);
     setDoc(doc(db, "users", email), {
@@ -45,15 +48,27 @@ const AuthContext = createContext();
 export function AuthContextProvider({ children }) {
   const [user, setUser] = useState({});
 
-  function signInWithGoogle() {
-    const googleProvider = new GoogleAuthProvider();
-
-    signInWithPopup(auth, googleProvider);
-    const email = error.customData.email;
-    setDoc(doc(db, "users", email), {
-      savedTrails: [],
-    });
-  }
+  const signInWithGoogle = async () => {
+    try {
+      const res = await signInWithPopup(auth, googleProvider);
+      const user = res.user;
+      const q = query(collection(db, "users"), where("uid", "==", user.uid));
+      const docs = await getDocs(q);
+      console.log("docs.docs: ", docs.docs);
+      if (docs.docs.length === 0) {
+        await addDoc(collection(db, "users"), {
+          uid: user.uid,
+          name: user.displayName,
+          authProvider: "google",
+          email: user.email,
+          image: user.photoURL,
+        });
+      }
+    } catch (err) {
+      console.error(err);
+      alert(err.message);
+    }
+  };
   /*.then((result) => {
         /*const name = result.user.displayName;
         const profilePic = result.user.photoURL;

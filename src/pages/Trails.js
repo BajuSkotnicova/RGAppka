@@ -1,4 +1,7 @@
 import React from "react";
+import { getFirestore, collection } from "firebase/firestore";
+import { useCollection } from "react-firebase-hooks/firestore";
+import { app } from "../firebase";
 import "../pages/Trails.css";
 import Search from "../components/Search";
 import TrailsData from "../Data.json";
@@ -81,11 +84,23 @@ const TRAILS_DATA = [
 ];
 
 function Trails() {
+  const [data, setData] = React.useState([]);
+
+  const [value, loading, error] = useCollection(
+    collection(getFirestore(app), "trails"),
+    { snapshotListenOptions: { includeMetadataChanges: true } }
+  );
+  if (!loading && !error && data.length === 0) {
+    setData(value.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+  }
+
+  if (loading) return <div>loading</div>;
+
   return (
     <>
       <Search placeholder="Napiš vrchol..." data={TrailsData} />
       <div className="trails">
-        {TRAILS_DATA.map((item) => (
+        {data.map((item) => (
           <TrailsItem key={item.id} {...item} />
         ))}
       </div>
