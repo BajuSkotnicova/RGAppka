@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { AiOutlineClose } from "react-icons/ai";
-/*import { useAuthState } from "react-firebase-hooks/auth";*/
-import { UserAuth } from "../firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
 import { db } from "../firebase";
 import { updateDoc, doc, onSnapshot } from "firebase/firestore";
 
 const SavedTrails = () => {
   const [trails, setTrails] = useState([]);
-  const { user } = UserAuth();
+  [user, loading, error] = useAuthState(auth);
 
   useEffect(() => {
     onSnapshot(doc(db, "users", `${user?.email}`), (doc) => {

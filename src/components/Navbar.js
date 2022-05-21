@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 import HikingIcon from "@mui/icons-material/Hiking";
 import { GiMountains } from "react-icons/gi";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { Button } from "./Button";
-import { UserAuth } from "../firebase";
+
 import Modal from "../components/Modal";
 import "./Navbar.css";
 
@@ -13,7 +14,7 @@ const Navbar = () => {
   const [click, setClick] = useState(false);
   const [button, setButton] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
-  const { user, logOut } = UserAuth();
+  const [user, loading, error] = useAuthState(auth);
   const navigate = useNavigate();
 
   const handleLogout = async () => {

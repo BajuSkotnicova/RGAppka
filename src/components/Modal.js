@@ -1,15 +1,15 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { UserAuth } from "../firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
 import { GoogleLoginButton } from "react-social-login-buttons";
 import { FacebookLoginButton } from "react-social-login-buttons";
 import "./Modal.css";
 
 function Modal({ setOpenModal }) {
-  /* const [user, loading, error] = useAuthState(auth);*/
+  const [user] = useAuthState();
 
-  const { signInWithGoogle, signInWithFacebook, user } = UserAuth();
+  const { signInWithGoogle, signInWithFacebook } = useAuthState();
   const navigate = useNavigate();
 
   const handleSignInWithGoogle = async () => {
@@ -29,9 +29,9 @@ function Modal({ setOpenModal }) {
 
   useEffect(() => {
     if (user != null) {
-      navigate("/account");
+      navigate("/");
     }
-  }, [user]);
+  });
 
   const modalCloser = (func) => {
     if (typeof func === "function") func();

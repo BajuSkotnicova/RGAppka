@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useDownloadURL } from "react-firebase-hooks/storage";
-import { UserAuth, storageRef } from "../firebase";
+import { storageRef } from "../firebase";
 import { arrayUnion, doc, updateDoc } from "firebase/firestore";
 import SwapCallsIcon from "@mui/icons-material/SwapCalls";
 import NorthEastIcon from "@mui/icons-material/NorthEast";

@@ -1,10 +1,10 @@
 import React from "react";
 import SavedTrails from "../components/SavedTrails";
 import { Button } from "../components/Button";
-import { UserAuth } from "../firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 const Account = () => {
-  const { logOut, user } = UserAuth();
+  const [user, loading, error] = useAuthState(auth);
 
   const handleSignOut = async () => {
     try {
