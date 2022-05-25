@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { auth, logOut } from "../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
-
 import HikingIcon from "@mui/icons-material/Hiking";
 import { GiMountains } from "react-icons/gi";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { Button } from "./Button";
-
 import Modal from "../components/Modal";
 import "./Navbar.css";
 
@@ -14,9 +13,8 @@ const Navbar = () => {
   const [click, setClick] = useState(false);
   const [button, setButton] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
-  const [user, loading, error] = useAuthState(auth);
+  const [user] = useAuthState(auth);
   const navigate = useNavigate();
-
   const handleLogout = async () => {
     try {
       await logOut();
@@ -25,10 +23,8 @@ const Navbar = () => {
       console.log(error);
     }
   };
-
   const handleClick = () => setClick(!click);
   const closeMobilMenu = () => setClick(false);
-
   const showButton = () => {
     if (window.innerWidth <= 960) {
       setButton(false);
@@ -36,7 +32,6 @@ const Navbar = () => {
       setButton(true);
     }
   };
-
   useEffect(() => {
     showButton();
   }, []);
@@ -51,8 +46,10 @@ const Navbar = () => {
             <GiMountains className="navbar-icon" />
             Beskydy trochu jinak
           </Link>
-          <div className="menu-icon" onClick={handleClick}>
-            {click ? <FaTimes /> : <FaBars />}
+          <div className="menu-icon">
+            <button href="#" onClick={handleClick}>
+              {click ? <FaTimes /> : <FaBars />}
+            </button>
           </div>
           <ul className={click ? "nav-menu active" : "nav-menu"}>
             <li className="nav-item">
@@ -74,7 +71,6 @@ const Navbar = () => {
                 Přihlášení
               </Link>
             </li>
-
             <li className="nav-item">
               {user && (
                 <Link
@@ -104,7 +100,13 @@ const Navbar = () => {
             </Button>
           )}
           <p className="userInfo"> {user?.displayName}</p>
-          {user && <img className="profilePic" src={user?.photoURL} />}
+          {user && (
+            <img
+              className="profilePic"
+              src={user?.photoURL}
+              alt="Profile pictur"
+            />
+          )}
         </div>
       </nav>
     </>

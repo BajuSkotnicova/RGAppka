@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
+import React from "react";
 import { useDownloadURL } from "react-firebase-hooks/storage";
 import { storageRef } from "../firebase";
 import { arrayUnion, doc, updateDoc } from "firebase/firestore";
@@ -18,12 +17,12 @@ import "../components/TrailsItem.css";
 import { db } from "../firebase";
 import { imageListClasses } from "@mui/material";
 
-const Image = ({ imageURL, error, loading }) => {
+const Image = ({ imageURL }) => {
+  const [value, loading, error] = useDownloadURL(storageRef(imageURL));
   if (loading) return <div>...</div>;
   if (error) return <div>chyba</div>;
-  return <img src={imageURL} />;
+  return <img src={value} alt="Preview" />;
 };
-
 function TrailsItem({
   imageURL,
   lenght,
@@ -33,7 +32,40 @@ function TrailsItem({
   description,
   location,
 }) {
-  /*const Trail = ({ item }) => {
+  return (
+    <>
+      <div className="trailsItem__container">
+        <div className="trailsItem">
+          <Image imageURL={imageURL} />​
+          <div className="trailsItem_icons">
+            <SwapCallsIcon className="trailsItem__length" />
+            <p> {lenght} km </p>
+            <NorthEastIcon className="trailsItem__altitude" />
+            <p> {altitude} m </p>
+            <SpeedIcon className="trailsItem__difficulty" />
+            <p> {difficulty} </p>
+          </div>
+          <div className="trailsItem__info">
+            <div className="trailsItem__infoTop">
+              <h2>{title}</h2>​<p>{description}</p>
+            </div>
+            ​
+            <div className="trailsItem__infoBottom">
+              <div className="trailsItem__share">
+                <ShareIcon className="trailsItem__share" />
+              </div>
+              <div className="trailsItem__save">
+                <StarBorderIcon /> <GradeIcon />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
+export default TrailsItem;
+/*const Trail = ({ item }) => {
     const [like, setLike] = useState(false);
     const [saved, setSaved] = useState(false);
 
@@ -55,45 +87,3 @@ function TrailsItem({
         alert("Prosím přihlaš se aby sis mohl uložit trasu");
       }
     };*/
-  console.log("location", location);
-  const [value, loading, error] = useDownloadURL(storageRef(imageURL));
-  console.log(" loading, error: ", loading, error);
-  console.log("value: ", value);
-
-  return (
-    <>
-      <div className="trailsItem__container">
-        <div className="trailsItem">
-          <Image imageURL={value} loading={loading} error={error} />
-
-          <div className="trailsItem_icons">
-            <SwapCallsIcon className="trailsItem__length" />
-            <p> {lenght} km </p>
-            <NorthEastIcon className="trailsItem__altitude" />
-            <p> {altitude} m </p>
-            <SpeedIcon className="trailsItem__difficulty" />
-            <p> {difficulty} </p>
-          </div>
-          <div className="trailsItem__info">
-            <div className="trailsItem__infoTop">
-              <h2>{title}</h2>
-
-              <p>{description}</p>
-            </div>
-
-            <div className="trailsItem__infoBottom">
-              <div className="trailsItem__share">
-                <ShareIcon className="trailsItem__share" />
-              </div>
-              <div className="trailsItem__save">
-                <StarBorderIcon /> <GradeIcon />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </>
-  );
-}
-
-export default TrailsItem;

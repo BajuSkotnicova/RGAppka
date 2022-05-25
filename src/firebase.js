@@ -1,12 +1,10 @@
 import { initializeApp } from "firebase/app";
 import { getStorage, ref } from "firebase/storage";
-import { useEffect, useState } from "react";
 import {
   getAuth,
   GoogleAuthProvider,
   signInWithPopup,
   FacebookAuthProvider,
-  onAuthStateChanged,
   signOut,
 } from "firebase/auth";
 import {
@@ -16,11 +14,7 @@ import {
   collection,
   where,
   addDoc,
-  setDoc,
-  doc,
 } from "firebase/firestore";
-import { useAuthState } from "react-firebase-hooks/auth";
-
 const firebaseConfig = {
   apiKey: "AIzaSyBY5e1dqOnwbZqyjVPdnw6Osnl_lKSX8Bg",
   authDomain: "rg-app-c442f.firebaseapp.com",
@@ -31,16 +25,13 @@ const firebaseConfig = {
 };
 
 export const app = initializeApp(firebaseConfig);
-
 export const db = getFirestore(app);
 const storage = getStorage(app);
 export const storageRef = (path) => ref(storage, path);
 export const auth = getAuth(app);
 
-export const [user, loading, error] = useAuthState(auth);
-const googleProvider = new GoogleAuthProvider();
-
 export const signInWithGoogle = async () => {
+  const googleProvider = new GoogleAuthProvider();
   try {
     const res = await signInWithPopup(auth, googleProvider);
     const user = res.user;
@@ -62,8 +53,8 @@ export const signInWithGoogle = async () => {
   }
 };
 
-const fbProvider = new FacebookAuthProvider();
 export const signInWithFacebook = async () => {
+  const fbProvider = new FacebookAuthProvider();
   try {
     const res = await signInWithPopup(auth, fbProvider);
     const user = res.user;
@@ -85,15 +76,6 @@ export const signInWithFacebook = async () => {
   }
 };
 
-export const logout = () => {
+export const logOut = () => {
   signOut(auth);
 };
-useEffect(() => {
-  const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-    setUser(currentUser);
-    console.log("User", currentUser);
-  });
-  return () => {
-    unsubscribe();
-  };
-});
