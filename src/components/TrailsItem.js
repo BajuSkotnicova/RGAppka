@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDownloadURL } from "react-firebase-hooks/storage";
+
 import { storageRef } from "../firebase";
 import { arrayUnion, doc, updateDoc } from "firebase/firestore";
 import SwapCallsIcon from "@mui/icons-material/SwapCalls";
@@ -8,14 +9,11 @@ import SpeedIcon from "@mui/icons-material/Speed";
 import ShareIcon from "@mui/icons-material/Share";
 import GradeIcon from "@mui/icons-material/Grade";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
-import {
-  EmailShareButton,
-  FacebookShareButton,
-  WhatsappShareButton,
-} from "react-share";
+import StarIcon from "@mui/icons-material/Star";
+import { useAuthState } from "react-firebase-hooks/auth";
 import "../components/TrailsItem.css";
-import { db } from "../firebase";
-import { imageListClasses } from "@mui/material";
+import { db, auth } from "../firebase";
+import ModalShare from "../components/ModalShare";
 
 const Image = ({ imageURL }) => {
   const [value, loading, error] = useDownloadURL(storageRef(imageURL));
@@ -24,14 +22,37 @@ const Image = ({ imageURL }) => {
   return <img src={value} alt="Preview" />;
 };
 function TrailsItem({
+  item,
   imageURL,
   lenght,
   altitude,
   difficulty,
   title,
   description,
-  location,
 }) {
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const [like, setLike] = useState(false);
+  const [user] = useAuthState(auth);
+  const [saved, setSaved] = useState(false);
+
+  const trailID = doc(db, "users", `${user?.email}`);
+
+  const savedTrails = async () => {
+    if (user?.email) {
+      setLike(!like);
+      setSaved(true);
+      await updateDoc(trailID, {
+        savedTrails: arrayUnion({
+          id: item.id,
+          title: item.title,
+        }),
+      });
+    } else {
+      alert("Prosím přihlaš se aby sis mohl uložit trasu");
+    }
+  };
+
   return (
     <>
       <div className="trailsItem__container">
@@ -49,13 +70,19 @@ function TrailsItem({
             <div className="trailsItem__infoTop">
               <h2>{title}</h2>​<p>{description}</p>
             </div>
-            ​
             <div className="trailsItem__infoBottom">
               <div className="trailsItem__share">
-                <ShareIcon className="trailsItem__share" />
+                <ShareIcon
+                  className="trailsItem__share"
+                  className="openModalBtn"
+                  onClick={() => {
+                    setModalOpen(true);
+                  }}
+                />
+                {modalOpen && <ModalShare setOpenModal={setModalOpen} />}
               </div>
-              <div className="trailsItem__save">
-                <StarBorderIcon /> <GradeIcon />
+              <div className="trailsItem__save" onClick={savedTrails}>
+                {like ? <StarIcon /> : <StarBorderIcon />}
               </div>
             </div>
           </div>
@@ -65,25 +92,3 @@ function TrailsItem({
   );
 }
 export default TrailsItem;
-/*const Trail = ({ item }) => {
-    const [like, setLike] = useState(false);
-    const [saved, setSaved] = useState(false);
-
-    const { user } = UserAuth();
-
-    const trailID = doc(db, "users", `${user?.email}`);
-
-    const saveTrail = async () => {
-      if (user?.email) {
-        setLike(!like);
-        setSaved(true);
-        await updateDoc(trailID, {
-          savedTrails: arrayUnion({
-            id: item.id,
-            vrchol: item.vrchol,
-          }),
-        });
-      } else {
-        alert("Prosím přihlaš se aby sis mohl uložit trasu");
-      }
-    };*/

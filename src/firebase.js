@@ -45,6 +45,7 @@ export const signInWithGoogle = async () => {
         authProvider: "google",
         email: user.email,
         image: user.photoURL,
+        savedTrails: [],
       });
     }
   } catch (err) {
@@ -63,6 +64,7 @@ export const signInWithFacebook = async () => {
     console.log("docs.docs: ", docs.docs);
     if (docs.docs.length === 0) {
       await addDoc(collection(db, "users"), {
+        savedTrails: [],
         uid: user.uid,
         name: user.displayName,
         authProvider: "facebook",

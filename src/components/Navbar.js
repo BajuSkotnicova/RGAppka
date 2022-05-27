@@ -104,7 +104,7 @@ const Navbar = () => {
             <img
               className="profilePic"
               src={user?.photoURL}
-              alt="Profile pictur"
+              alt="Profile picture"
             />
           )}
         </div>

@@ -6,9 +6,8 @@ import "../pages/Trails.css";
 import Search from "../components/Search";
 import TrailsData from "../Data.json";
 import TrailsItem from "../components/TrailsItem";
-import pic1 from "../pictures/pic4v2.jpg";
 
-const TRAILS_DATA = [
+/*const TRAILS_DATA = [
   {
     id: 1,
     img: pic1,
@@ -81,7 +80,7 @@ const TRAILS_DATA = [
     location: "chata Ondřejník -> Skalka",
     path: "/trasa6",
   },
-];
+];*/
 
 function Trails() {
   const [data, setData] = React.useState([]);
