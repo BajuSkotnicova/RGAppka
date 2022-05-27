@@ -2,7 +2,14 @@ import React, { useState } from "react";
 import { useDownloadURL } from "react-firebase-hooks/storage";
 
 import { storageRef } from "../firebase";
-import { arrayUnion, doc, updateDoc } from "firebase/firestore";
+import {
+  arrayUnion,
+  doc,
+  setDoc,
+  collection,
+  query,
+  where,
+} from "firebase/firestore";
 import SwapCallsIcon from "@mui/icons-material/SwapCalls";
 import NorthEastIcon from "@mui/icons-material/NorthEast";
 import SpeedIcon from "@mui/icons-material/Speed";
@@ -22,7 +29,7 @@ const Image = ({ imageURL }) => {
   return <img src={value} alt="Preview" />;
 };
 function TrailsItem({
-  item,
+  id,
   imageURL,
   lenght,
   altitude,
@@ -35,17 +42,19 @@ function TrailsItem({
   const [like, setLike] = useState(false);
   const [user] = useAuthState(auth);
   const [saved, setSaved] = useState(false);
+  const usersRef = collection(db, "users");
 
-  const trailID = doc(db, "users", `${user?.email}`);
+  const trailID = doc(db, "/users/", `${user?.uid}`);
+  console.log("trailID: ", query(usersRef, where("uid", "==", `${user.uid}`)));
 
   const savedTrails = async () => {
     if (user?.email) {
       setLike(!like);
       setSaved(true);
-      await updateDoc(trailID, {
+      await setDoc(trailID, {
         savedTrails: arrayUnion({
-          id: item.id,
-          title: item.title,
+          id,
+          title,
         }),
       });
     } else {

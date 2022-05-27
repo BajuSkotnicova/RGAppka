@@ -89,6 +89,8 @@ function Trails() {
     collection(getFirestore(app), "trails"),
     { snapshotListenOptions: { includeMetadataChanges: true } }
   );
+  console.log("value, loading, error: ", value, loading, error);
+
   if (!loading && !error && data.length === 0) {
     setData(value.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
   }

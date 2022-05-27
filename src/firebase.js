@@ -40,7 +40,7 @@ export const signInWithGoogle = async () => {
     console.log("docs.docs: ", docs.docs);
     if (docs.docs.length === 0) {
       await addDoc(collection(db, "users"), {
-        uid: user.uid,
+        /*uid: user.uid,*/
         name: user.displayName,
         authProvider: "google",
         email: user.email,
