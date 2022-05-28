@@ -42,6 +42,7 @@ function TrailsItem({
           savedTrails: arrayRemove({
             id,
             title,
+            imageURL,
           }),
         });
       } else {
@@ -49,6 +50,7 @@ function TrailsItem({
           savedTrails: arrayUnion({
             id,
             title,
+            imageURL,
           }),
         });
       }
@@ -84,9 +86,9 @@ function TrailsItem({
                 />
                 {modalOpen && <ModalShare setOpenModal={setModalOpen} />}
               </div>
-              <button className="trailsItem__save" onClick={savedTrails}>
+              <p className="trailsItem__save" onClick={savedTrails}>
                 {like ? <StarIcon /> : <StarBorderIcon />}
-              </button>
+              </p>
             </div>
           </div>
         </div>
