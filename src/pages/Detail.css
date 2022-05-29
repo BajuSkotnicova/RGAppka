@@ -1,0 +1,9 @@
+.detail {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  display: grid;
+  margin-left: 400px;
+  margin-right: 400px;
+}

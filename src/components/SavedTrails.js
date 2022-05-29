@@ -1,47 +1,36 @@
-import React, { useState, useEffect } from "react";
-import { updateDoc, doc, onSnapshot } from "firebase/firestore";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth, db } from "../firebase";
+import React from "react";
+import { useCollectionData } from "react-firebase-hooks/firestore";
 import { AiOutlineClose } from "react-icons/ai";
-
+import { toggleTrailLike, useUser } from "../context/userContext";
+import { addUidConverter, getCollection } from "../firebase";
+import Image from "../components/Image";
 const SavedTrails = () => {
-  const [trails, setTrails] = useState([]);
-  const [user] = useAuthState(auth);
-
-  useEffect(() => {
-    onSnapshot(doc(db, "users", `${user?.uid}`), (doc) => {
-      setTrails(doc.data()?.SavedTrails);
-    });
-  }, [user?.uid]);
-
-  const trailRef = doc(db, "users", `${user?.uid}`);
-  const deleteTrail = async (passedID) => {
-    try {
-      const result = trails.filter((doc) => doc.id !== passedID);
-      await updateDoc(trailRef, {
-        savedShows: result,
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
+  const collection = getCollection("trails");
+  const [trails, loading, error] = useCollectionData(
+    collection.withConverter(addUidConverter),
+    { snapshotListenOptions: { includeMetadataChanges: true } }
+  );
+  const { userData } = useUser();
+  if (error) return <div>Něco se pokazilo.</div>;
+  if (loading) return <div>načítám</div>;
+  const savedTrails = trails.filter((trail) =>
+    userData.savedTrails.includes(trail.uid)
+  );
+  if (!savedTrails || savedTrails.length === 0) {
+    return <div>Zatím nemáš uloženy žádné trasy</div>;
+  }
   return (
     <>
-      {trails.map((doc) => (
-        <div>
-          <img ImageURL={doc?.imageURL} />
-
-          <p> {doc?.title} </p>
-
-          <p onClick={() => deleteTrail(doc.id)}>
-            {" "}
-            <AiOutlineClose />{" "}
-          </p>
+      {savedTrails.map((trail) => (
+        <div key={trail.uid}>
+          <Image imageURL={trail?.imageURL} />
+          <p> {trail?.title} </p>
+          <button onClick={() => toggleTrailLike(userData, trail.uid)}>
+            <AiOutlineClose />
+          </button>
         </div>
       ))}
     </>
   );
 };
-
 export default SavedTrails;
