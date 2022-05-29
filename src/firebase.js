@@ -61,3 +61,14 @@ export const signInWithFacebook = async () => {
 export const logOut = () => {
   signOut(auth);
 };
+export const addUidConverter = {
+  fromFirestore(snapshot, options) {
+    const data = snapshot.data(options);
+    return {
+      ...data,
+      uid: snapshot.id,
+    };
+  },
+};
+export const getCollection = (colID) => collection(db, colID);
+export const getDocument = (colID, docID) => doc(db, colID, docID);

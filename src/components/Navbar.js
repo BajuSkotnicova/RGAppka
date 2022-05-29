@@ -8,23 +8,28 @@ import { FaBars, FaTimes } from "react-icons/fa";
 import { Button } from "./Button";
 import Modal from "../components/Modal";
 import "./Navbar.css";
+import { HOME_PATH, TRAILS_PATH, SAVED_TRAILS_PATH } from "../Paths";
 
 const Navbar = () => {
   const [click, setClick] = useState(false);
   const [button, setButton] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
   const [user] = useAuthState(auth);
+
   const navigate = useNavigate();
-  const handleLogout = async () => {
+
+  const handleLogout = () => {
     try {
-      await logOut();
-      navigate("/");
+      logOut();
+      navigate(HOME_PATH);
     } catch (error) {
       console.log(error);
     }
   };
   const handleClick = () => setClick(!click);
+
   const closeMobilMenu = () => setClick(false);
+
   const showButton = () => {
     if (window.innerWidth <= 960) {
       setButton(false);
@@ -32,6 +37,7 @@ const Navbar = () => {
       setButton(true);
     }
   };
+
   useEffect(() => {
     showButton();
   }, []);
@@ -42,7 +48,7 @@ const Navbar = () => {
     <>
       <nav className="navbar">
         <div className="navbar-container">
-          <Link to="/" className="navbar-logo" onClick={closeMobilMenu}>
+          <Link to={HOME_PATH} className="navbar-logo" onClick={closeMobilMenu}>
             <GiMountains className="navbar-icon" />
             Beskydy trochu jinak
           </Link>
@@ -53,28 +59,33 @@ const Navbar = () => {
           </div>
           <ul className={click ? "nav-menu active" : "nav-menu"}>
             <li className="nav-item">
-              <Link to="/" className="nav-links" onClick={closeMobilMenu}>
+              <Link
+                to={HOME_PATH}
+                className="nav-links"
+                onClick={closeMobilMenu}
+              >
                 Domů
               </Link>
             </li>
             <li className="nav-item">
-              <Link to="/trails" className="nav-links" onClick={closeMobilMenu}>
+              <Link
+                to={TRAILS_PATH}
+                className="nav-links"
+                onClick={closeMobilMenu}
+              >
                 Trasy
               </Link>
             </li>
             <li className="nav-item">
-              <Link
-                to="/"
-                className="nav-links-mobile"
-                onClick={closeMobilMenu}
-              >
+              {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+              <a href="#" className="nav-links-mobile" onClick={closeMobilMenu}>
                 Přihlášení
-              </Link>
+              </a>
             </li>
             <li className="nav-item">
               {user && (
                 <Link
-                  to="/savedTrails"
+                  to={SAVED_TRAILS_PATH}
                   className="nav-links"
                   onClick={closeMobilMenu}
                 >
@@ -101,6 +112,7 @@ const Navbar = () => {
           )}
           <p className="userInfo"> {user?.displayName}</p>
           {user && (
+            // eslint-disable-next-line jsx-a11y/img-redundant-alt
             <img
               className="profilePic"
               src={user?.photoURL}

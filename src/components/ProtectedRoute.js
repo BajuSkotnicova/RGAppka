@@ -1,15 +1,10 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
-import { useAuthState } from "react-firebase-hooks/auth";
-
-const ProtectedRoute = ({ children }) => {
-  const { user } = useAuthState();
-
+import { HOME_PATH } from "../Paths";
+const ProtectedRoute = ({ user, fallbackURL, children }) => {
   if (!user) {
-    return <Navigate to="/" />;
-  } else {
-    return children;
+    return <Navigate to={fallbackURL || HOME_PATH} replace />;
   }
+  return children;
 };
-
 export default ProtectedRoute;

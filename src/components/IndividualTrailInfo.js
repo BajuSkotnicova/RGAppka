@@ -3,6 +3,7 @@ import SwapCallsIcon from "@mui/icons-material/SwapCalls";
 import NorthEastIcon from "@mui/icons-material/NorthEast";
 import SpeedIcon from "@mui/icons-material/Speed";
 import LightbulbIcon from "@mui/icons-material/Lightbulb";
+import "./IndividualTrailInfo.css";
 
 function IndividualTrailInfo({
   img,
@@ -14,26 +15,25 @@ function IndividualTrailInfo({
   tips,
 }) {
   return (
-    <div className="container">
+    <div className="containerTrail">
       <img src={img} alt="" />
-      <div classname="container_infoTop">
+      <div className="containerTrail_infoTop">
         <h2>{title}</h2>
       </div>
-      <div className="container_infoBasic">
-        <SwapCallsIcon className="trailsItem__length" />
+      <div className="containerTrail_infoBasic">
+        <SwapCallsIcon className="Trail__length" />
         <p> {lenght} km </p>
-        <NorthEastIcon className="trailsItem__altitude" />
+        <NorthEastIcon className="Trail__altitude" />
         <p> {altitude} m </p>
-        <SpeedIcon className="trailsItem__difficulty" />
+        <SpeedIcon className="tTrail__difficulty" />
         <p> {difficulty} </p>
       </div>
-      <div className="container_infoBottom">
+      <div className="containerTrail_infoBottom">
         <h3>Popis Trasy</h3>
         <p> {description} </p>
       </div>
-      <div className="container_infoRight">
+      <div className="containerTrail_infoRight">
         <LightbulbIcon />
-        <h3>Tip!</h3>
         <p> {tips} </p>
       </div>
     </div>

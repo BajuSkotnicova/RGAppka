@@ -1,61 +1,28 @@
 import React, { useState, useMemo } from "react";
-import { useDownloadURL } from "react-firebase-hooks/storage";
-import { storageRef } from "../firebase";
-import { arrayUnion, doc, arrayRemove, updateDoc } from "firebase/firestore";
 import SwapCallsIcon from "@mui/icons-material/SwapCalls";
 import NorthEastIcon from "@mui/icons-material/NorthEast";
 import SpeedIcon from "@mui/icons-material/Speed";
 import ShareIcon from "@mui/icons-material/Share";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import StarIcon from "@mui/icons-material/Star";
-import "../components/TrailsItem.css";
-import { db } from "../firebase";
-import ModalShare from "../components/ModalShare";
-
-const Image = ({ imageURL }) => {
-  const [value, loading, error] = useDownloadURL(storageRef(imageURL));
-  if (loading) return <div>...</div>;
-  if (error) return <div>chyba</div>;
-  return <img src={value} alt="Preview" />;
-};
+import "./TrailsItem.css";
+import ModalShare from "./ModalShare";
+import Image from "../components/Image";
+import { useUser, toggleTrailLike } from "../context/userContext";
 function TrailsItem({
-  id,
+  uid,
   imageURL,
   lenght,
   altitude,
   difficulty,
   title,
   description,
-  userData,
 }) {
   const [modalOpen, setModalOpen] = useState(false);
-  const like = useMemo(() => userData?.savedTrails.find((t) => t.id === id), [
+  const { userData } = useUser();
+  const isLiked = useMemo(() => userData?.savedTrails.includes(uid), [
     userData,
   ]);
-  const userDocId = useMemo(() => doc(db, "users", `${userData?.uid}`), [
-    userData,
-  ]);
-  const savedTrails = async () => {
-    if (userData) {
-      if (userData && userData.savedTrails.find((st) => st.id === id)) {
-        await updateDoc(userDocId, {
-          savedTrails: arrayRemove({
-            id,
-            title,
-          }),
-        });
-      } else {
-        await updateDoc(userDocId, {
-          savedTrails: arrayUnion({
-            id,
-            title,
-          }),
-        });
-      }
-    } else {
-      alert("Prosím přihlaš se aby sis mohl uložit trasu");
-    }
-  };
   return (
     <>
       <div className="trailsItem__container">
@@ -84,8 +51,11 @@ function TrailsItem({
                 />
                 {modalOpen && <ModalShare setOpenModal={setModalOpen} />}
               </div>
-              <button className="trailsItem__save" onClick={savedTrails}>
-                {like ? <StarIcon /> : <StarBorderIcon />}
+              <button
+                className="trailsItem__save"
+                onClick={() => toggleTrailLike(userData, uid)}
+              >
+                {isLiked ? <StarIcon /> : <StarBorderIcon />}
               </button>
             </div>
           </div>

@@ -1,38 +1,36 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { useCollectionData } from "react-firebase-hooks/firestore";
 import { AiOutlineClose } from "react-icons/ai";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { db } from "../firebase";
-import { updateDoc, doc, onSnapshot } from "firebase/firestore";
-
+import { toggleTrailLike, useUser } from "../context/userContext";
+import { addUidConverter, getCollection } from "../firebase";
+import Image from "../components/Image";
 const SavedTrails = () => {
-  const [trails, setTrails] = useState([]);
-  [user, loading, error] = useAuthState(auth);
-
-  useEffect(() => {
-    onSnapshot(doc(db, "users", `${user?.email}`), (doc) => {
-      setTrails(doc.data()?.SavedTrails);
-    });
-  }, [user?.user]);
-  const trailRef = doc(db, "users", `${user?.user}`);
-  const deleteTrail = async (passedID) => {
-    try {
-      const result = trails.filter((item) => item.id !== passedID);
-      await updateDoc(trailRef, {
-        SavedTrails: result,
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
+  const collection = getCollection("trails");
+  const [trails, loading, error] = useCollectionData(
+    collection.withConverter(addUidConverter),
+    { snapshotListenOptions: { includeMetadataChanges: true } }
+  );
+  const { userData } = useUser();
+  if (error) return <div>Něco se pokazilo.</div>;
+  if (loading) return <div>načítám</div>;
+  const savedTrails = trails.filter((trail) =>
+    userData.savedTrails.includes(trail.uid)
+  );
+  if (!savedTrails || savedTrails.length === 0) {
+    return <div>Zatím nemáš uloženy žádné trasy</div>;
+  }
   return (
-    <div>
-      <p onClick={() => deleteTrail(item.id)}>
-        {" "}
-        <AiOutlineClose />
-      </p>
-    </div>
+    <>
+      {savedTrails.map((trail) => (
+        <div key={trail.uid}>
+          <Image imageURL={trail?.imageURL} />
+          <p> {trail?.title} </p>
+          <button onClick={() => toggleTrailLike(userData, trail.uid)}>
+            <AiOutlineClose />
+          </button>
+        </div>
+      ))}
+    </>
   );
 };
-
 export default SavedTrails;
