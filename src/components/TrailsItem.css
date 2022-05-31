@@ -1,6 +1,6 @@
 .trailsItem {
   display: flex;
-  position: relative;
+
   margin: 20px;
   padding: 20px;
   border-bottom: 1px solid lightgray;
@@ -11,7 +11,6 @@
   padding-left: 15px;
   padding-top: 15px;
 }
-
 .trailsItem__length {
   padding-left: 1%;
 
@@ -50,7 +49,10 @@
 .trailsItem__infoTop {
   width: 40vw;
 }
-
+.trailsItem__infoTop > {
+  font-size: 16px;
+  margin-top: 30px;
+}
 .trailsItem__infoTop > h3 {
   font-size: 20px;
   margin-top: 10px;
@@ -63,7 +65,8 @@
 .trailsItem__infoTop > p {
   margin-top: 10px;
   font-size: 13px;
-  color: gray;
+  color: rgb(19, 18, 18);
+  margin-top: 40px;
 }
 
 .trailsItem__infoBottom {
@@ -76,6 +79,7 @@
   align-items: center;
   color: #eeaa6f;
   cursor: pointer;
+  margin-top: 60px;
 }
 .trailsItem__share {
   margin-left: 85%;
@@ -83,6 +87,7 @@
   align-items: center;
   cursor: pointer;
   color: #eeaa6f;
+  margin-top: 30px;
 }
 
 @media only screen and (min-width: 1200px) {

@@ -6,15 +6,85 @@
   border-radius: 5px;
   background-color: #ffddbf;
   align-items: center;
+  text-align: center;
   justify-content: center;
+  width: 700px;
+  height: 1100px;
+}
+.containerTrail > h2 {
+  padding-top: 20px;
+  font-size: 26px;
 }
 .containerTrail_infoBasic {
   margin-top: -9px;
   border-radius: 10px;
-  padding: 20px;
-  padding-top: 20px;
+  padding-left: 80px;
+  padding-right: 40px;
+  padding-top: 40px;
   border: 1;
+  font-size: 12px;
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+}
+.Trail__length {
+  font-size: 16px;
+}
+
+.containerTrail_infoBasic > p {
+  font-weight: 16px;
+  padding-right: 100px;
+  padding-top: 5px;
 }
 .containerTrail > img {
   align-items: center;
+  padding-top: 30px;
+}
+.containerTrail_infoTop > h3 {
+  font-size: 22px;
+  padding-top: 40px;
+}
+.containerTrail_infoBottom > h3 {
+  font-size: 22px;
+}
+.containerTrail_infoBottom {
+  padding-top: 60px;
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
+.containerTrail_map {
+  padding-top: 60px;
+  padding-left: 60px;
+  padding-right: 60px;
+}
+
+.containerTrail_infoRight {
+  padding-top: 80px;
+}
+
+.containerTrail_infoRight > p {
+  font-size: 16px;
+}
+
+.containerTrail_infoBottom > p {
+  font-size: 16px;
+  padding-top: 20px;
+}
+.Trail__difficulty {
+  color: red;
+  font-size: 15px;
+}
+
+.containerTrail_infoRight {
+  align-items: center;
+  color: rgb(15, 15, 15);
+  padding-left: 40px;
+  padding-right: 40px;
+}
+.tip {
+  color: black;
+}
+.containerTrail_infoRight > p {
+  padding-top: 10px;
 }

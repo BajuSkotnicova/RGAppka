@@ -5,6 +5,7 @@ import "../pages/Trails.css";
 import Search from "../components/Search";
 import TrailsData from "../Data.json";
 import TrailsItem from "../components/TrailsItem";
+import "./Trails.css";
 function Trails() {
   const collection = getCollection("trails");
   const [trails, loading, error] = useCollectionData(
