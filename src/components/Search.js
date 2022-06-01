@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import "../components/Search.css";
 import SearchIcon from "@mui/icons-material/Search";
 import CloseIcon from "@mui/icons-material/Close";
+import TrailsItem from "../components/TrailsItem";
 
-function Search({ placeholder, data }) {
+function Search({ placeholder, data, peak }) {
   const [filteredData, setFilteredData] = useState([]);
   const [wordEntered, setWordEntered] = useState("");
 
@@ -11,7 +12,7 @@ function Search({ placeholder, data }) {
     const searchWord = event.target.value;
     setWordEntered(searchWord);
     const newFilter = data.filter((value) => {
-      return value.vrchol.toLowerCase().includes(searchWord.toLowerCase());
+      return value.peak.toLowerCase().includes(searchWord.toLowerCase());
     });
 
     if (searchWord === "") {
@@ -45,19 +46,9 @@ function Search({ placeholder, data }) {
       </div>
       {filteredData.length != 0 && (
         <div className="dataResult">
-          {filteredData.slice(0, 5).map((value) => {
-            return (
-              <a
-                className="dataItem"
-                key={value.id}
-                href={value.link}
-                target="_blank"
-                rel="noreferrer"
-              >
-                <p>{value.vrchol} </p>
-              </a>
-            );
-          })}
+          {peak.map((item) => (
+            <TrailsItem key={item.peak} {...item} />
+          ))}
         </div>
       )}
     </div>

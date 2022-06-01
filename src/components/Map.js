@@ -4,10 +4,11 @@ import { Map, PathLayer, Path, MouseControl } from "react-mapycz";
 function Maps() {
   return (
     <div>
-      <Map height="100px" center={{ lat: 49.536, lng: 18.499 }} zoom={11}>
+      <Map height="250px" center={{ lat: 49.536, lng: 18.499 }} zoom={11}>
         <MouseControl zoom={true} />
         <PathLayer>
           <Path
+            id="1"
             coords={[
               { lat: 49.5140981, lng: 18.4164992 },
               { lat: 49.5149342, lng: 18.5272853 },
@@ -19,7 +20,10 @@ function Maps() {
             criterion="turist2"
             dynamicRoute={true}
           />
+        </PathLayer>
+        <PathLayer>
           <Path
+            id="2"
             coords={[
               { lat: 49.5941353, lng: 18.5248642 },
               { lat: 49.5942139, lng: 18.6021883 },
@@ -31,7 +35,11 @@ function Maps() {
             criterion="turist2"
             dynamicRoute={true}
           />
+        </PathLayer>
+
+        <PathLayer>
           <Path
+            id="3"
             coords={[
               { lat: 49.5847283, lng: 18.3389308 },
               { lat: 49.5878453, lng: 18.3207497 },
@@ -44,7 +52,11 @@ function Maps() {
             criterion="turist2"
             dynamicRoute={true}
           />
+        </PathLayer>
+
+        <PathLayer>
           <Path
+            id="4"
             coords={[
               { lat: 49.5486086, lng: 18.3379908 },
               { lat: 49.5271608, lng: 18.3355233 },
@@ -56,7 +68,11 @@ function Maps() {
             criterion="turist2"
             dynamicRoute={true}
           />
+        </PathLayer>
+
+        <PathLayer>
           <Path
+            id="5"
             coords={[
               { lat: 49.5260361, lng: 18.6372236 },
               { lat: 49.5147675, lng: 18.6054956 },

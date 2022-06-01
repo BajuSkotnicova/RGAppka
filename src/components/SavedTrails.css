@@ -1,6 +1,14 @@
 .noTrails {
   text-align: center;
   padding-top: 30px;
+  padding-bottom: 200px;
+}
+
+.noTrails > img {
+  text-align: left;
+  justify-content: left;
+  width: 30px;
+  height: 30px;
 }
 
 .savedTrails {
