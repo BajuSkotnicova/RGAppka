@@ -1,5 +1,6 @@
 import React from "react";
 import SavedTrails from "../components/SavedTrails";
+import "./Account.css";
 
 function Account() {
   return (

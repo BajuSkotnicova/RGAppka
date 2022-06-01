@@ -4,6 +4,8 @@ import { AiOutlineClose } from "react-icons/ai";
 import { toggleTrailLike, useUser } from "../context/userContext";
 import { addUidConverter, getCollection } from "../firebase";
 import Image from "../components/Image";
+import "./SavedTrails.css";
+
 const SavedTrails = () => {
   const collection = getCollection("trails");
   const [trails, loading, error] = useCollectionData(
@@ -17,19 +19,23 @@ const SavedTrails = () => {
     userData.savedTrails.includes(trail.uid)
   );
   if (!savedTrails || savedTrails.length === 0) {
-    return <div>Zatím nemáš uloženy žádné trasy</div>;
+    return <div className="noTrails">Zatím nemáš uloženy žádné trasy</div>;
   }
   return (
     <>
-      {savedTrails.map((trail) => (
-        <div key={trail.uid}>
-          <Image imageURL={trail?.imageURL} />
-          <p> {trail?.title} </p>
-          <button onClick={() => toggleTrailLike(userData, trail.uid)}>
-            <AiOutlineClose />
-          </button>
-        </div>
-      ))}
+      <div className="savedTrails">
+        {savedTrails.map((trail) => (
+          <div className="savedTrailsInfo" key={trail.uid}>
+            <Image imageURL={trail?.imageURL} />
+            <div className="savedTrailsInfoBottom">
+              <p> {trail?.title} </p>
+              <button onClick={() => toggleTrailLike(userData, trail.uid)}>
+                <AiOutlineClose />
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
     </>
   );
 };

@@ -8,10 +8,16 @@ import Home from "./pages/Home";
 import Account from "./pages/Account";
 import { UserProvider } from "./context/userContext";
 import ProtectedRoute from "./components/ProtectedRoute";
-import { HOME_PATH, TRAILS_PATH, SAVED_TRAILS_PATH } from "./Paths";
+import {
+  HOME_PATH,
+  TRAILS_PATH,
+  SAVED_TRAILS_PATH,
+  DETAIL_PATH,
+} from "./Paths";
 import "./index.css";
 import { auth } from "./firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
+import Detail from "./pages/Detail";
 function App() {
   const [user] = useAuthState(auth);
   return (
@@ -22,6 +28,7 @@ function App() {
           <Routes>
             <Route path={HOME_PATH} element={<Home />} />
             <Route path={TRAILS_PATH} element={<Trails />} />
+            <Route path={DETAIL_PATH} element={<Detail />} />
             <Route
               path={SAVED_TRAILS_PATH}
               element={

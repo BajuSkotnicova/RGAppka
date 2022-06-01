@@ -51,12 +51,12 @@ function TrailsItem({
                 />
                 {modalOpen && <ModalShare setOpenModal={setModalOpen} />}
               </div>
-              <button
+              <div
                 className="trailsItem__save"
                 onClick={() => toggleTrailLike(userData, uid)}
               >
                 {isLiked ? <StarIcon /> : <StarBorderIcon />}
-              </button>
+              </div>
             </div>
           </div>
         </div>

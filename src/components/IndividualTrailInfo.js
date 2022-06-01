@@ -3,37 +3,49 @@ import SwapCallsIcon from "@mui/icons-material/SwapCalls";
 import NorthEastIcon from "@mui/icons-material/NorthEast";
 import SpeedIcon from "@mui/icons-material/Speed";
 import LightbulbIcon from "@mui/icons-material/Lightbulb";
+import { useUser } from "../context/userContext";
+import Image from "../components/Image";
+import Maps from "../components/Map";
 import "./IndividualTrailInfo.css";
 
 function IndividualTrailInfo({
-  img,
+  uid,
+  imageURL,
   title,
   lenght,
   altitude,
   difficulty,
-  description,
+  descriptionL,
   tips,
 }) {
+  const { userData } = useUser();
   return (
     <div className="containerTrail">
-      <img src={img} alt="" />
+      <h2>{title}</h2>
+      <Image imageURL={imageURL} />
       <div className="containerTrail_infoTop">
-        <h2>{title}</h2>
+        <h3>Základní informace</h3>
       </div>
       <div className="containerTrail_infoBasic">
         <SwapCallsIcon className="Trail__length" />
         <p> {lenght} km </p>
         <NorthEastIcon className="Trail__altitude" />
         <p> {altitude} m </p>
-        <SpeedIcon className="tTrail__difficulty" />
+        <SpeedIcon className="Trail__difficulty" />
         <p> {difficulty} </p>
       </div>
       <div className="containerTrail_infoBottom">
         <h3>Popis Trasy</h3>
-        <p> {description} </p>
+        <p> {descriptionL} </p>
+      </div>
+      <div className="containerTrail_map">
+        <Maps />
       </div>
       <div className="containerTrail_infoRight">
-        <LightbulbIcon />
+        <div className="tip">
+          <LightbulbIcon />{" "}
+        </div>
+
         <p> {tips} </p>
       </div>
     </div>

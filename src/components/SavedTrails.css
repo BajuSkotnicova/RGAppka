@@ -1,0 +1,28 @@
+.noTrails {
+  text-align: center;
+  padding-top: 30px;
+}
+
+.savedTrails {
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+}
+
+.savedTrailsInfo {
+  padding-top: 20px;
+}
+.savedTrailsInfo > p {
+  padding-right: 20px;
+  padding-top: 40px;
+}
+.savedTrailsInfo > button {
+  padding-right: 20px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  text-align: center;
+}
+.savedTrailsInfoBottom {
+  align-items: flex-start;
+}
