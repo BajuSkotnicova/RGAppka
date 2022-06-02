@@ -60,6 +60,9 @@ function TrailsItem({
               <div
                 className="trailsItem__save"
                 onClick={() => toggleTrailLike(userData, uid)}
+                onKeyUp
+                role="button"
+                tabIndex="0"
               >
                 {isLiked ? <StarIcon /> : <StarBorderIcon />}
               </div>
