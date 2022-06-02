@@ -1,58 +1,65 @@
 import React, { useState } from "react";
+import debounce from "lodash.debounce";
 import "../components/Search.css";
 import SearchIcon from "@mui/icons-material/Search";
 import CloseIcon from "@mui/icons-material/Close";
-import TrailsItem from "../components/TrailsItem";
 
-function Search({ placeholder, data, peak }) {
+const useSearch = (data) => {
+  const original = React.useMemo(() => data, [data]);
+
   const [filteredData, setFilteredData] = useState([]);
   const [wordEntered, setWordEntered] = useState("");
 
-  const handleFilter = (event) => {
-    const searchWord = event.target.value;
-    setWordEntered(searchWord);
-    const newFilter = data.filter((value) => {
-      return value.peak.toLowerCase().includes(searchWord.toLowerCase());
-    });
+  const searchInput = React.useRef(null);
 
-    if (searchWord === "") {
-      setFilteredData([]);
-    } else {
-      setFilteredData(newFilter);
-    }
-  };
+  function handleDebounceFn(searchQuery, originalData) {
+    const newFilter = originalData.filter((value) =>
+      value?.title.toLowerCase().includes(searchQuery.trim().toLowerCase())
+    );
+    setFilteredData(newFilter);
+  }
+
+  const debounceFn = React.useCallback(debounce(handleDebounceFn, 300), []);
+
+  React.useEffect(() => {
+    searchInput?.current?.focus();
+  }, [filteredData]);
+
+  React.useEffect(() => {
+    debounceFn(wordEntered, original);
+
+    searchInput?.current?.focus();
+
+    return () => debounceFn.cancel();
+  }, [wordEntered, debounceFn, original]);
 
   const clearInput = () => {
     setFilteredData([]);
     setWordEntered("");
   };
 
-  return (
+  const Search = ({ placeholder }) => (
     <div className="search">
       <div className="searchInputs">
         <input
+          ref={searchInput}
           type="text"
           placeholder={placeholder}
           value={wordEntered}
-          onChange={handleFilter}
+          onChange={(e) => setWordEntered(e.target.value)}
         />
         <div className="searchIcon">
-          {filteredData.length === 0 ? (
+          {wordEntered === "" ? (
             <SearchIcon />
           ) : (
             <CloseIcon id="clearBtn" onClick={clearInput} />
           )}
         </div>
       </div>
-      {filteredData.length != 0 && (
-        <div className="dataResult">
-          {peak.map((item) => (
-            <TrailsItem key={item.peak} {...item} />
-          ))}
-        </div>
-      )}
     </div>
   );
-}
 
-export default Search;
+  return [filteredData, Search];
+};
+
+export default useSearch;

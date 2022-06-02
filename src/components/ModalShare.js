@@ -21,6 +21,9 @@ function Modal({ setOpenModal }) {
           X
         </button>
       </div>
+      <div className="modalContainerShareTitle ">
+        <h2>Sdílej</h2>
+      </div>
 
       <div className="footer">
         <FacebookShareButton>

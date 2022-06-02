@@ -1,6 +1,6 @@
 .modalContainerShare {
-  width: 250px;
-  height: 150px;
+  width: 200px;
+  height: 200px;
   border-radius: 12px;
   background-color: white;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
@@ -10,10 +10,8 @@
   position: absolute;
 }
 
-.modalContainerShare .title {
-  display: inline-block;
+.modalContainerShareTitle {
   text-align: center;
-  margin-top: 10px;
 }
 
 .titleCloseBtnShare {
@@ -26,15 +24,6 @@
   border: none;
   font-size: 14px;
   cursor: pointer;
-}
-
-.modalContainerShare .body {
-  flex: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 1.7rem;
-  text-align: center;
 }
 
 .modalContainerShare .footer {
