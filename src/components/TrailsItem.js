@@ -9,6 +9,9 @@ import "./TrailsItem.css";
 import ModalShare from "./ModalShare";
 import Image from "../components/Image";
 import { useUser, toggleTrailLike } from "../context/userContext";
+import { Link } from "react-router-dom";
+import { DETAIL_PATH } from "../Paths";
+
 function TrailsItem({
   uid,
   imageURL,
@@ -17,6 +20,7 @@ function TrailsItem({
   difficulty,
   title,
   description,
+  peak,
 }) {
   const [modalOpen, setModalOpen] = useState(false);
   const { userData } = useUser();
@@ -38,7 +42,9 @@ function TrailsItem({
           </div>
           <div className="trailsItem__info">
             <div className="trailsItem__infoTop">
-              <h2>{title}</h2>
+              <Link to={`${DETAIL_PATH}/${uid}`}>
+                <h2>{title}</h2>
+              </Link>
               <p>{description}</p>
             </div>
             <div className="trailsItem__infoBottom">

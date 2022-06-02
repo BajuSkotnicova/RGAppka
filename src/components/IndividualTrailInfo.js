@@ -3,7 +3,6 @@ import SwapCallsIcon from "@mui/icons-material/SwapCalls";
 import NorthEastIcon from "@mui/icons-material/NorthEast";
 import SpeedIcon from "@mui/icons-material/Speed";
 import LightbulbIcon from "@mui/icons-material/Lightbulb";
-import { useUser } from "../context/userContext";
 import Image from "../components/Image";
 import Maps from "../components/Map";
 import "./IndividualTrailInfo.css";
@@ -18,7 +17,6 @@ function IndividualTrailInfo({
   descriptionL,
   tips,
 }) {
-  const { userData } = useUser();
   return (
     <div className="containerTrail">
       <h2>{title}</h2>
@@ -34,13 +32,14 @@ function IndividualTrailInfo({
         <SpeedIcon className="Trail__difficulty" />
         <p> {difficulty} </p>
       </div>
+      <div className="containerTrail_map">
+        <Maps />
+      </div>
       <div className="containerTrail_infoBottom">
         <h3>Popis Trasy</h3>
         <p> {descriptionL} </p>
       </div>
-      <div className="containerTrail_map">
-        <Maps />
-      </div>
+
       <div className="containerTrail_infoRight">
         <div className="tip">
           <LightbulbIcon />{" "}

@@ -1,16 +1,26 @@
 .noTrails {
   text-align: center;
   padding-top: 30px;
+  padding-bottom: 200px;
+}
+
+.noTrails > img {
+  text-align: left;
+  justify-content: left;
+  width: 30px;
+  height: 30px;
 }
 
 .savedTrails {
-  align-items: center;
+  display: grid;
   text-align: center;
-  justify-content: center;
+  margin: 20px;
+  padding: 20px;
+  border-bottom: 1px solid lightgray;
 }
 
 .savedTrailsInfo {
-  padding-top: 20px;
+  padding-top: 30px;
 }
 .savedTrailsInfo > p {
   padding-right: 20px;
@@ -24,5 +34,5 @@
   text-align: center;
 }
 .savedTrailsInfoBottom {
-  align-items: flex-start;
+  align-items: space-between;
 }

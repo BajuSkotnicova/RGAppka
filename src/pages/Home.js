@@ -22,7 +22,7 @@ function Home() {
                 src={card1}
                 title="Navštiv originální místa"
                 description="v Beskydech se nachází
-      množství zajimavých míst o kterých jen málokdo ví."
+      množství zajimavých míst."
               />
               <Cards
                 src={card2}
@@ -36,8 +36,8 @@ function Home() {
               />
               <Cards
                 src={card4}
-                title="Zvol si trasu podle svých možností"
-                description="Chceš něco nenáročného nebo nějakou pořádnou makačku? Každý si vybere."
+                title="Zvol si trasu "
+                description="zvol si trasu podle svých možností."
               />
             </ul>
           </div>

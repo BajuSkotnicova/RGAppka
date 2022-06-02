@@ -8,8 +8,8 @@
   align-items: center;
   text-align: center;
   justify-content: center;
-  width: 700px;
-  height: 1100px;
+  width: 800px;
+  height: 1200px;
 }
 .containerTrail > h2 {
   padding-top: 20px;
@@ -55,8 +55,8 @@
 
 .containerTrail_map {
   padding-top: 60px;
-  padding-left: 60px;
-  padding-right: 60px;
+  padding-left: 250px;
+  padding-right: 250px;
 }
 
 .containerTrail_infoRight {
@@ -72,7 +72,7 @@
   padding-top: 20px;
 }
 .Trail__difficulty {
-  color: red;
+  color: black;
   font-size: 15px;
 }
 

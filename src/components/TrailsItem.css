@@ -1,6 +1,7 @@
 .trailsItem {
   display: flex;
 
+  text-align: center;
   margin: 20px;
   padding: 20px;
   border-bottom: 1px solid lightgray;
@@ -9,7 +10,9 @@
 .trailsItem_icons > p {
   font-size: 13px;
   padding-left: 15px;
-  padding-top: 15px;
+}
+.trailsItem_icons {
+  padding-top: 50px;
 }
 .trailsItem__length {
   padding-left: 1%;

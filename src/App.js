@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useCollectionData } from "react-firebase-hooks/firestore";
 import "./App.css";
 import Navbar from "./components/Navbar";
 import Trails from "./pages/Trails";
@@ -15,11 +16,19 @@ import {
   DETAIL_PATH,
 } from "./Paths";
 import "./index.css";
-import { auth } from "./firebase";
+import { auth, getCollection, addUidConverter } from "./firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import Detail from "./pages/Detail";
+
 function App() {
   const [user] = useAuthState(auth);
+
+  const collection = getCollection("trails");
+  const [trails, loading, error] = useCollectionData(
+    collection.withConverter(addUidConverter),
+    { snapshotListenOptions: { includeMetadataChanges: true } }
+  );
+
   return (
     <div className="App">
       <Router>
@@ -27,13 +36,23 @@ function App() {
           <Navbar />
           <Routes>
             <Route path={HOME_PATH} element={<Home />} />
-            <Route path={TRAILS_PATH} element={<Trails />} />
-            <Route path={DETAIL_PATH} element={<Detail />} />
+            <Route
+              path={TRAILS_PATH}
+              element={
+                <Trails trails={trails} loading={loading} error={error} />
+              }
+            />
+            <Route
+              path={`${DETAIL_PATH}/:id`}
+              element={
+                <Detail trails={trails} loading={loading} error={error} />
+              }
+            />
             <Route
               path={SAVED_TRAILS_PATH}
               element={
                 <ProtectedRoute user={user}>
-                  <Account />
+                  <Account trails={trails} loading={loading} error={error} />
                 </ProtectedRoute>
               }
             />
