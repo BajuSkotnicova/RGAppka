@@ -29,8 +29,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "lint": "eslint \"src/**/*.{js,jsx}\" --quiet"
+    "test": "react-scripts test"
   },
   "eslintConfig": {
     "extends": [
